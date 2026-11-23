@@ -36,10 +36,4 @@ if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   });
 }
 
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = app;
-  (module.exports as any).default = app;
-  (module.exports as any).app = app;
-}
-
 export default app;

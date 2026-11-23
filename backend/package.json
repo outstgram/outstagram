@@ -2,6 +2,7 @@
   "name": "hereabouts-backend",
   "version": "1.0.0",
   "description": "Backend logic and API services for Hereabouts: The Anti-Instagram",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
