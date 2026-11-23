@@ -3,14 +3,20 @@
   "version": "1.0.0",
   "description": "Backend logic and API services for Hereabouts: The Anti-Instagram",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "app.cjs",
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node dist/server.js",
+    "build": "tsc && esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --footer:js=\"module.exports = module.exports.default || module.exports; module.exports.default = module.exports;\" --outfile=app.cjs",
+    "start": "node app.cjs",
     "dev": "tsx watch src/server.ts",
     "test": "tsx --test tests/**/*.test.ts"
   },
-  "keywords": ["hereabouts", "anti-instagram", "slow-post", "backend", "ai-coach"],
+  "keywords": [
+    "hereabouts",
+    "anti-instagram",
+    "slow-post",
+    "backend",
+    "ai-coach"
+  ],
   "author": "Antigravity",
   "license": "MIT",
   "dependencies": {
@@ -24,6 +30,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.24",
+    "esbuild": "^0.28.2",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   }
