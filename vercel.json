@@ -3,12 +3,7 @@
   "services": {
     "backend": {
       "root": "backend",
-      "framework": "express",
-      "functions": {
-        "**": {
-          "includeFiles": "package.json"
-        }
-      }
+      "framework": "express"
     },
     "frontend": {
       "root": "frontend",
