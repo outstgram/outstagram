@@ -11,8 +11,8 @@ export const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// Health check endpoint
-app.get('/health', (_req, res) => {
+// Health check endpoint (accessible at /health and /api/health)
+const healthHandler = (_req: express.Request, res: express.Response) => {
   res.json({
     status: 'ok',
     service: 'Hereabouts Backend Service',
@@ -20,7 +20,9 @@ app.get('/health', (_req, res) => {
     demo_mode: config.allowDemoMode,
     timestamp: new Date().toISOString(),
   });
-});
+};
+app.get('/health', healthHandler);
+app.get('/api/health', healthHandler);
 
 // Register routers
 app.use('/api/postcard', postcardRouter);

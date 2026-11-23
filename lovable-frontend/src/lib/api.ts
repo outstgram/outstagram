@@ -1,5 +1,23 @@
 import { supabase } from './supabase';
 
+/**
+ * Resolves the backend endpoint URL.
+ * In server-side runtime (SSR / Vercel Server Functions), it resolves via the bound
+ * BACKEND_URL service binding (or VITE_API_URL). In client-side browser runtime,
+ * it routes via relative '/api' which Vercel proxies directly to the backend service.
+ */
+export function getBackendUrl(endpoint: string): string {
+  const normalized = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (typeof window === 'undefined') {
+    const bound = process.env['BACKEND_URL'] || process.env['VITE_API_URL'];
+    if (bound) {
+      const base = bound.replace(/\/$/, '');
+      return normalized.startsWith('/api') ? `${base}${normalized}` : `${base}/api${normalized}`;
+    }
+  }
+  return normalized.startsWith('/api') ? normalized : `/api${normalized}`;
+}
+
 const API_BASE = '/api';
 
 export interface PostcardPayload {
@@ -394,7 +412,7 @@ export async function submitPostcard(payload: PostcardPayload): Promise<{
   error?: string;
 }> {
   try {
-    const res = await fetch(`${API_BASE}/postcard/create`, {
+    const res = await fetch(getBackendUrl('/postcard/create'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -488,7 +506,7 @@ export async function askCoach(message: string): Promise<CoachResponse> {
 
   // 1. Try Express Backend /api/coach/chat
   try {
-    const res = await fetch(`${API_BASE}/coach/chat`, {
+    const res = await fetch(getBackendUrl('/coach/chat'), {
       method: 'POST',
       headers,
       body: JSON.stringify({ action: 'chat', message }),
@@ -575,7 +593,7 @@ export async function getCoachSummary(): Promise<string> {
 
   // 1. Try Backend
   try {
-    const res = await fetch(`${API_BASE}/coach/chat`, {
+    const res = await fetch(getBackendUrl('/coach/chat'), {
       method: 'POST',
       headers,
       body: JSON.stringify({ action: 'summary' }),
@@ -624,7 +642,7 @@ export async function getCoachSummary(): Promise<string> {
  */
 export async function redeemMeetupCode(code: string): Promise<{ success: boolean; newCap?: number; message?: string }> {
   try {
-    const res = await fetch(`${API_BASE}/meetup/token/redeem`, {
+    const res = await fetch(getBackendUrl('/meetup/token/redeem'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
