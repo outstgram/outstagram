@@ -253,7 +253,7 @@ function Login() {
     try {
       const redirectUrl = typeof window !== "undefined"
         ? `${window.location.origin}/`
-        : "https://outstagrampage.vercel.app/";
+        : "https://outstagram.vercel.app/";
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "apple",
         options: {
@@ -280,7 +280,7 @@ function Login() {
     try {
       const redirectUrl = typeof window !== "undefined"
         ? `${window.location.origin}/settings`
-        : "https://outstagrampage.vercel.app/settings";
+        : "https://outstagram.vercel.app/settings";
       const { error: resetErr } = await supabase.auth.resetPasswordForEmail(targetEmail, {
         redirectTo: redirectUrl,
       });
@@ -425,7 +425,7 @@ function Login() {
 
         setBusyText("Creating your Outstagram account…");
 
-        const redirectUrl = typeof window !== "undefined" ? `${window.location.origin}/` : "https://outstagrampage.vercel.app/";
+        const redirectUrl = typeof window !== "undefined" ? `${window.location.origin}/` : "https://outstagram.vercel.app/";
         const finalAvatar = avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(trimmedUsername)}`;
         const finalBio = bio.trim() || "Living offline first. Exploring the city with Outstagram.";
 
