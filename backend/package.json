@@ -2,12 +2,12 @@
   "name": "hereabouts-backend",
   "version": "1.0.0",
   "description": "Backend logic and API services for Hereabouts: The Anti-Instagram",
-  "main": "server.js",
+  "type": "module",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "echo Pre-bundled server.js ready",
-    "bundle": "esbuild src/server.source.ts --bundle --platform=node --target=node20 --format=cjs --footer:js=\"module.exports = server_default; module.exports.default = server_default;\" --outfile=server.js",
-    "start": "node server.js",
-    "dev": "tsx watch src/server.source.ts",
+    "build": "tsc",
+    "start": "tsc && node dist/server.js",
+    "dev": "tsx watch src/server.ts",
     "test": "tsx --test tests/**/*.test.ts"
   },
   "keywords": [
