@@ -3,7 +3,6 @@
   "services": {
     "backend": {
       "root": "backend",
-      "runtime": "nodejs24.x",
       "entrypoint": "server.js"
     },
     "frontend": {
