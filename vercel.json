@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd lovable-frontend && npm install",
+  "buildCommand": "cd lovable-frontend && npm run build",
+  "outputDirectory": "lovable-frontend/.output/public",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
