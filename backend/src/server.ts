@@ -30,8 +30,10 @@ app.use('/api/meetup', meetupRouter);
 app.use('/api/coach', coachRouter);
 app.use('/api/group', groupRouter);
 
-if (process.env.NODE_ENV !== 'test') {
+if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   app.listen(config.port, () => {
     console.log(`[Hereabouts] Backend API running at http://localhost:${config.port}`);
   });
 }
+
+export default app;
