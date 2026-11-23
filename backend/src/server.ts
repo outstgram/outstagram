@@ -6,7 +6,7 @@ import { meetupRouter } from './routes/meetup.routes.js';
 import { coachRouter } from './routes/coach.routes.js';
 import { groupRouter } from './routes/group.routes.js';
 
-export const app = express();
+const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -34,6 +34,12 @@ if (!process.env.VERCEL && process.env.NODE_ENV !== 'test') {
   app.listen(config.port, () => {
     console.log(`[Hereabouts] Backend API running at http://localhost:${config.port}`);
   });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = app;
+  (module.exports as any).default = app;
+  (module.exports as any).app = app;
 }
 
 export default app;
