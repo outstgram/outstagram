@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Backend logic and API services for Hereabouts: The Anti-Instagram",
   "type": "module",
-  "main": "app.cjs",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc && esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --footer:js=\"module.exports = module.exports.default || module.exports; module.exports.default = module.exports;\" --outfile=app.cjs",
-    "start": "node app.cjs",
+    "build": "tsc",
+    "start": "tsc && node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "test": "tsx --test tests/**/*.test.ts"
   },
